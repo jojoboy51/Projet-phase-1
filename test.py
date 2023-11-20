@@ -4,6 +4,10 @@ import argparse
 symbole = 'goog'
 url = f'https://pax.ulaval.ca/action/{symbole}/historique/'
 
+('A', 'AAPL', 'C', 'GOOG', 'HOG', 'HPQ', 'INTC', 'IBM', 'LUV', 'MMM', 'MSFT', 'T', 'TGT', 'TXN', 'XOM', 'WMT')
+
+
+
 params = {
     'début': '2019-02-18',
     'fin': '2019-02-24',
