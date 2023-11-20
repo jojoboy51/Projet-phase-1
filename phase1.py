@@ -1,7 +1,7 @@
 import json
 import argparse
 import datetime
-
+import requests
 
 #ceci est l'initialisation de mon parser qui gère les arguments du module.
 parser = argparse.ArgumentParser(description='Extraction de valeurs historiques pour un ou plusieurs symboles boursiers.')
@@ -19,9 +19,34 @@ def analyser_commande(args):
     if args.début == None:
         args.début = args.fin
     return ('titre={}: valeur={}, début=datetime.date({}), fin=datetime.date({})'.format(args.symbole, args.valeur, args.début, args.fin))
-    
+
+#affichage à la console des commandes donné fournie au module   
 print(analyser_commande(args))
 
-def produire_historique():
+s = args.symbole
+v = args.valeur
+d = args.début
+f = args.fin
+def produire_historique(s, v, d, f):
+    if d == None:
+        d = f
     
-    pass
+    symbole = s
+    url = f'https://pax.ulaval.ca/action/{symbole}/historique/'
+
+    params = {'début': d,'fin': f,}
+    réponse = requests.get(url=url, params=params)
+    réponse = json.loads(réponse.text)
+    réponse = réponse['historique']
+    t = ()
+    h = []
+    for clé in réponse.keys():
+        t += (clé, réponse[clé][v])
+    l = len(t)
+    for i in range(0,l,2):
+        h.append(t[i:i+2])
+    print(h)
+        
+    print(len(t))
+
+produire_historique(s, v, d, f)
