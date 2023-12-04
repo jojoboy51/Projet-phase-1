@@ -4,10 +4,10 @@ class Bourse:
     def prix(symbole, date):
         import datetime
         if date > datetime.date.today():
-            raise ValueError
+            raise ErreurDate
         if date == datetime.date.today():
             date = date - datetime.timedelta(days = 1)
-        
+
         from phase1 import produire_historique
         
         x = produire_historique(symbole, 'fermeture', date, date)
@@ -16,4 +16,3 @@ class Bourse:
                 date = date - datetime.timedelta(days = 1)
                 x = produire_historique(symbole, 'fermeture', date, date)
         return float(x[0][1])
-
