@@ -182,4 +182,37 @@ class Portefeuille:
     
 
     def valeur_projetée(Bourse, date, rendement):
-        pass
+        
+        import datetime
+
+        n = date - datetime.date.today()
+        n = n.days//365
+        m = date - datetime.date.today()
+        m = m.days%365
+
+        if type(rendement) == type(float()):
+
+            vtitre = Bourse.valeur_total() - Portefeuille.solde()
+            vtitre = vtitre*(1+rendement/100)**n + (m/365)*vtitre*(rendement/100)
+        
+            return vtitre + Portefeuille.solde()
+        
+
+        if type(rendement) == type(dict()):
+
+            d = Bourse.titres()
+            vtitre = 0
+
+            for s, t in rendement.items():
+                for key, q in d.items():
+                    if s == key:
+                        v = q*Bourse.prix(key, datetime.date.today())
+                        vtitre += v*(1+t/100)**n + (m/365)*v*(t/100)
+
+            for s in rendement.keys():
+                d.pop(s)
+
+            for key, q in d.items():
+                vtitre += q*Bourse.prix(key, datetime.date.today())
+
+            return vtitre + Portefeuille.sold()
