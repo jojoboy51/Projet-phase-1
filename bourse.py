@@ -2,6 +2,9 @@ class Bourse:
     
 #cette méthode doit retourner le prix à la fermeture
     def prix(symbole, date):
+        
+        from exceptions import ErreurDate
+        
         import datetime
         if date > datetime.date.today():
             raise ErreurDate
