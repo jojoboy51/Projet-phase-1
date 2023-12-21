@@ -93,7 +93,7 @@ parser_p.add_argument('-g', '--graphique', metavar='BOOL', default=None,
 parser_p.add_argument('-p', '--portefeuille', metavar='STRING', default='folio', 
     help='Nom de portefeuille (par défaut, utiliser folio)')
 
-args=parser.parse_args()
+args = parser.parse_args()
 
 A = subparsers
 d = args.date
@@ -111,3 +111,23 @@ def analyser_commande(A, d, q, t, r, v, g, p):
 
 
 print(analyser_commande(A, d, q, t, r, v, g, p))
+
+
+principal = portefeuille(p)
+
+
+if A == 'déposer':
+    principal.déposer(q, d)
+
+if A == 'acheter':
+    principal.acheter(t, q, d)
+
+if A == 'vendre':
+    principal.vendre(t, q, d)
+
+if A == 'lister':
+    principal.titres(d)
+    principal.valeur_des_titres(t, d)
+
+if A == 'projeter':
+    principal.valeur_projetée(d, r)

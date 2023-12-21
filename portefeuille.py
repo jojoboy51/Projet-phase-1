@@ -2,13 +2,18 @@ class Portefeuille:
     
     import datetime
 
-    def __init__(Bourse):
+    def __init__(Bourse, nom=None):
+        
+        if nom != None:
+            Bourse = nom
 
+        import json
         #Historique des transactions en liquide
         Bourse.transaction = {}
         #historique des transaction de titre
         Bourse.titre = {}
-
+        
+        json.dump(Bourse)
 
     def déposer(Bourse, montant, date=datetime.date.today()):
         
@@ -216,3 +221,15 @@ class Portefeuille:
                 vtitre += q*Bourse.prix(key, datetime.date.today())
 
             return vtitre + Portefeuille.sold()
+        
+
+    def lire_json(Bourse):
+
+        import json
+        json.loads(Bourse)
+
+
+    def écrire_json(Bourse):
+
+        import json
+        json.dump(Bourse)
